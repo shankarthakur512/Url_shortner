@@ -16,6 +16,7 @@ if(!body.url) return res.status(400).json({error : 'Url is required'})
         redirectURL : body.url,
         visitHistory : [],
     })
+    return res.render("home" ,{shortID : shortID })
   return res.json({id : shortID})
 }
 

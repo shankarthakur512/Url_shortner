@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>URL Shortner</h1>
+
+    <% if (locals.shortID) { %>
+     <h2>http://localhost:8000/<%= locals.shortID %></h2>
+    <% } %>
+    <form method="POST" action="/url">
+    <input type="text" placeholder="Enter url" name="url" />
+    <button type="submit">Generate</button>
+    </form>
+<div>
+    <% if (locals.Urls) { %>
+     <table>
+        <thead>
+            <td>s.no</td>
+            <td>redirect</td>
+            <td>Total clicks</td>
+        </thead>
+        <tbody>
+            
+              <% locals.Urls.forEach((url , index) => { %>
+                <tr>
+
+                    <td><%= index +1 %></td>
+                 <td><%= url.redirectURL %></td>
+                 <td><%= url.visitHistory.length %></td>
+                </tr> 
+              <% }) %>
+            
+        </tbody>
+     </table>
+    <% } %>
+</div>
+</body>
+</html>

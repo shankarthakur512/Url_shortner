@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path')
 const {ConnectDB} = require('./src/Database/index.js')
 const URL = require('./src/models/Url.model.js')
 const app = express();
@@ -14,14 +15,17 @@ ConnectDB(DB_URL).then(()=>{console.log("MongoDB connected!!!")})
 
 app.use(express.urlencoded({extended : true}))
 app.use(express.json())
+app.set('view engine' ,"ejs")
+app.set("views" , path.resolve("./Views"))
 
 //routes
 const UrlRouter = require('./src/routes/Url.routes.js');
-const { findOneAndUpdate } = require('./src/models/Url.model.js');
+const staticRouter = require('./src/routes/Static.routes.js')
 app.use('/url' , UrlRouter)
+app.use('/',staticRouter)
 
 
-app.get('/:shortID' ,async (req , res)=>{
+app.get('/url/:shortID' ,async (req , res)=>{
 
   const { shortID } = req.params;
  
